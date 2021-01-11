@@ -22,3 +22,10 @@ jobs:
         path: dist/*exe # 将 packs 目录进行上传
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     # step7: create release
+    - name: release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/*exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
