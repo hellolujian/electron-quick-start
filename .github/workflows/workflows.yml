@@ -14,11 +14,11 @@ jobs:
         npm install
         npm run pack
       env:
-        GH_TOKEN: 9cce86fa7074d2a06faefe21e82cf27f43526b16
+        GH_TOKEN: 51c2d98b20b619384aac65f01d7ecd0137da9433
     - name: Upload file # 将构建产物进行上传
       uses: actions/upload-artifact@v2
       with:
         name: packs # 上传后的名字
         path: dist/*exe # 将 packs 目录进行上传
       env: 
-        GH_TOKEN: 9cce86fa7074d2a06faefe21e82cf27f43526b16
+        GH_TOKEN: 51c2d98b20b619384aac65f01d7ecd0137da9433
