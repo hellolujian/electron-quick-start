@@ -24,14 +24,14 @@ jobs:
       run: |
         npm run build
       env:
-        GH_TOKEN: bef0b46667d2b13f8asdasdasd762873af59f71c
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: build mac app
       if: matrix.os == 'macos-10.15'
       run: |
         npm run build
       env:
-        GH_TOKEN: bef0b46667d2b13f8asdasdasd762873af59f71c
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload file # 将构建产物进行上传
       uses: actions/upload-artifact@v2
       with:
