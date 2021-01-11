@@ -6,19 +6,36 @@ on:
       - 'v*.*.*'
 jobs:
   pack: # 打包任务
-    runs-on: windows-latest # 在 windows 系统中运行
+    runs-on: ${{ matrix.os }} # 在 windows 系统中运行
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019, macos-10.15]
     steps:
     - uses: actions/checkout@v2 # 下载仓库代码到工作流机器中
     - name: Install and Pack # 安装依赖并且进行构建
       run: |
         npm install
-        npm run pack
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # step4: build app for mac/win
+    - name: build windows app
+      if: matrix.os == 'windows-2019'
+      run: |
+        npm run build
+      env:
+        GH_TOKEN: bef0b46667d2b13f8asdasdasd762873af59f71c
+
+    - name: build mac app
+      if: matrix.os == 'macos-10.15'
+      run: |
+        npm run build
+      env:
+        GH_TOKEN: bef0b46667d2b13f8asdasdasd762873af59f71c
     - name: Upload file # 将构建产物进行上传
       uses: actions/upload-artifact@v2
       with:
-        name: packs # 上传后的名字
+        name: ${{ matrix.os }} # 上传后的名字
         path: dist/*exe # 将 packs 目录进行上传
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
